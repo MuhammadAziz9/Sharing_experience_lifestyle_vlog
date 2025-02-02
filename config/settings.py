@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'blogging',
+    'crispy_forms',
+    'crispy_bootstrap5'
+
 ]
 
 MIDDLEWARE = [
@@ -95,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Asia/Tashkent'
 
@@ -112,9 +115,22 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'
+# DEFAULT_FROM_EMAIL = '#'
+# EMAIL_HOST = '#'
+# EMAIL_HOST_USER = '#'
+# EMAIL_HOST_PASSWORD = '#'
+# EMAIL_PORT = '#'
+# EMAIL_USE_TLS = True
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5"]  
+CRISPY_TEMPLATE_PACK = "bootstrap5"
