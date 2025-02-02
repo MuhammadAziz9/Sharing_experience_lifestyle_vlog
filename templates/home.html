@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Bosh sahifa {% endblock title %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {{user.username}}!
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <p>Saytga kirmagansiz</p>
+        <a href="{% url 'login' %}">Saytga kirish</a><br>
+        <a href="{% url 'signup' %}">Ro'yhatdan o'tish</a>
+    {% endif %}
+
+
+{% endblock content %}
