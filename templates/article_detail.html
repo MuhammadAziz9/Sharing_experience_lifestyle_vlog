@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+
+                {% if article.photo %}
+                    <img src="{{ article.photo.url }}" class="card-img-top" alt="{{ article.title }}" style="object-fit: cover; height: 400px;">
+                {% endif %}
+
+                <div class="card-body">
+                    <h1 class="card-title text-center text-dark mb-4">{{ article.title }}</h1>
+                    <div class="text-muted text-center mb-3">
+                        <i class="bi bi-person-fill"></i> {{ article.author|title }} &middot; 
+                        <i class="bi bi-calendar-event"></i> {{ article.date|date:"d M, Y" }}
+                    </div>
+                    
+                    <hr>
+                    <p class="card-text" style="font-size: 1.1rem; line-height: 1.8;">
+                        {{ article.body|linebreaks }}
+                    </p>
+                </div>
+
+                <div class="card-footer bg-white border-0 text-end">
+                    {% if user == article.author %}
+                        <a href="{% url 'article_edit' article.id %}" class="btn btn-outline-primary me-2">✏️ Tahrirlash</a>
+                        <a href="{% url 'article_delete' article.id %}" class="btn btn-outline-danger me-2" >🗑️ O‘chirish</a>
+                    {% endif %}
+                    <a href="{% url 'article_list' %}" class="btn btn-outline-secondary">⬅️ Ortga qaytish</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

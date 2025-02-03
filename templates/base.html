@@ -29,7 +29,7 @@
                                 {{ user.username | title }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Yangi post</a></li>
+                                <li><a class="dropdown-item" href="{% url 'article_add' %}">Yangi post</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'password_change' %}">Kalit so'zni almashtirish</a></li>
                                 <li><hr class="dropdown-divider"></li>

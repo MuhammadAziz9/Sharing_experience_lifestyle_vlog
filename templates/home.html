@@ -1,18 +1,90 @@
 {% extends 'base.html' %}
-{% block title %} Bosh sahifa {% endblock title %}
+
 {% block content %}
+<style>
+    /* Asosiy fon va animatsiyalar */
+    body {
+        background: linear-gradient(135deg, #e0f7fa, #ffffff);
+        min-height: 100vh;
+        padding-top: 50px;
+        transition: background 0.5s ease-in-out;
+    }
 
-    {% if user.is_authenticated %}
-        {{user.username}}!
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
-    {% else %}
-        <p>Saytga kirmagansiz</p>
-        <a href="{% url 'login' %}">Saytga kirish</a><br>
-        <a href="{% url 'signup' %}">Ro'yhatdan o'tish</a>
-    {% endif %}
+    /* Kontent kartasi */
+    .intro-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .intro-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Sarlavha va matn */
+    .intro-title {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #0077b6;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .intro-text {
+        font-size: 1.2rem;
+        color: #555555;
+        line-height: 1.8;
+    }
+
+    /* Tugma dizayni */
+    .btn-explore {
+        background-color: #0077b6;
+        border: none;
+        color: #fff;
+        font-size: 1.2rem;
+        padding: 15px 30px;
+        border-radius: 30px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-explore:hover {
+        background-color: #023e8a;
+        transform: scale(1.05);
+    }
+
+    /* Animatsiya paydo bo‘lish uchun */
+    .fade-in {
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="container fade-in" style="margin-top: 40px;">
+    <div class="text-center intro-card">
+        <h1 class="intro-title">Salom, bu mening shaxsiy blogim! 🚀</h1>
+        <p class="intro-text mt-3">
+            Bu blogda men o'zimning qiziqishlarim, fikrlarim va tajribalarim bilan o'rtoqlashaman. 
+            Texnologiya, hayotiy tajribalar, va boshqa ko'plab qiziqarli mavzularni topishingiz mumkin.
+        </p><br>
+        <p class="intro-text mt-3">
+            Va o'zingizga qiziqarli bo'lgan yangiliklar,yangi texnologiyalar,va bloglarni bu yerda qoldirishingiz mumkin
+        </p>
+        <a href="{% url 'article_list' %}" class="btn btn-explore mt-4">Saytga kirish ⬇️</a>
+    </div>
+</div>
+{% endblock %}
 
 
-{% endblock content %}

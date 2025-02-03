@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-danger">
+                <div class="card-header bg-danger text-white text-center">
+                    <h3>⚠️ Diqqat!</h3>
+                </div>
+                <div class="card-body text-center">
+                    <p class="fs-5">Siz <strong>"{{ article.title }}"</strong> maqolasini o‘chirmoqchimisiz?</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger me-2">🗑️ Ha, o‘chirilsin</button>
+                        <a href="{% url 'article_detail' article.id %}" class="btn btn-secondary">⬅️ Bekor qilish</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
