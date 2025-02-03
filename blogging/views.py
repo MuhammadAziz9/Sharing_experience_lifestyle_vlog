@@ -18,6 +18,7 @@ def article_detail(request,id):
     }
     return render(request,'article_detail.html',context=context)
 
+@login_required
 def article_edit(request,id):
     article = get_object_or_404(Article,id=id)
     if request.user != article.author:
@@ -53,6 +54,7 @@ def article_add(request):
     }
     return render(request,'article_add.html',context=context)
 
+@login_required
 def article_delete(request,id):
     article = get_object_or_404(Article,id=id)
     if request.user != article.author:
