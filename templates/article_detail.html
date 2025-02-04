@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container my-5">
     <div class="row justify-content-center">
@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h1 class="card-title text-center text-dark mb-4">{{ article.title }}</h1>
                     <div class="text-muted text-center mb-3">
-                        <i class="bi bi-person-fill"></i> {{ article.author|title }} &middot; 
+                        <i class="bi bi-person-fill"></i> Muallif : {{ article.author|title }} &middot; 
                         <i class="bi bi-calendar-event"></i> {{ article.date|date:"d M, Y" }}
                     </div>
                     
@@ -26,12 +26,43 @@
                 <div class="card-footer bg-white border-0 text-end">
                     {% if user == article.author %}
                         <a href="{% url 'article_edit' article.id %}" class="btn btn-outline-primary me-2">✏️ Tahrirlash</a>
-                        <a href="{% url 'article_delete' article.id %}" class="btn btn-outline-danger me-2" >🗑️ O‘chirish</a>
+                        <a href="{% url 'article_delete' article.id %}" class="btn btn-outline-danger me-2">🗑️ O‘chirish</a>
                     {% endif %}
                     <a href="{% url 'article_list' %}" class="btn btn-outline-secondary">⬅️ Ortga qaytish</a>
                 </div>
-
             </div>
+
+            <!-- Kommentlar bo‘limi -->
+            <div class="mt-4">
+                <h4>Kommentlar:</h4>
+                <hr>
+                {% for comment in comments %}
+                    <div class="mb-3 p-3 border rounded shadow-sm position-relative">
+                        <strong>Muallif : {{ comment.author }}</strong> 
+                        <p class="mt-2">{{ comment.comment }}</p> 
+            
+                        {% if user == comment.author %}
+                            <form method="post" action="{% url 'delete_comment' comment.id %}" style="position: absolute; top: 10px; right: 10px;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">🗑️</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <p>Hozircha kommentlar yo‘q.</p>
+                {% endfor %}
+            </div>
+
+            <!-- Komment yozish formasi -->
+            <div class="mt-4">
+                <h5>Komment yozish:</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Yuborish</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

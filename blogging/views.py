@@ -1,8 +1,8 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponseForbidden
-from .models import Article
+from .models import Article,Comment
 from django.contrib.auth.decorators import login_required
-from .forms import ArticleForm
+from .forms import ArticleForm,CommentForm
 
 def article_list(request):
     articles = Article.objects.all()
@@ -13,10 +13,32 @@ def article_list(request):
 
 def article_detail(request,id):
     article = get_object_or_404(Article,id=id)
+    comments = article.comments.all()
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+            comment.save()
+            return redirect('article_detail',id=article.id)
+    else:
+        form = CommentForm()
     context = {
-        'article':article
+        'article':article,
+        'comments':comments,
+        'form':form
     }
     return render(request,'article_detail.html',context=context)
+
+@login_required
+def delete_comment(request, id):
+    comment = get_object_or_404(Comment, id=id)
+    if comment.author == request.user:
+        comment.delete()
+    return redirect('article_detail', id=comment.article.id)
+
+
 
 @login_required
 def article_edit(request,id):
