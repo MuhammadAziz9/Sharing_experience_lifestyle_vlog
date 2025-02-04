@@ -10,6 +10,10 @@ crispy-bootstrap5 = "*"
 pillow = "*"
 django-ckeditor-5 = "*"
 django-ckeditor = "*"
+environs = {extras = ["django"], version = "*"}
+psycopg2-binary = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
