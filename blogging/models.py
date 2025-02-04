@@ -1,13 +1,16 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from ckeditor.fields import RichTextField  # TO‘G‘RI
+
+
 
 # Create your models here.
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
     summary = models.CharField(max_length=200,blank=True)
-    body = models.TextField()
+    body = RichTextField()
     photo = models.ImageField(upload_to='images',blank=True)
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)

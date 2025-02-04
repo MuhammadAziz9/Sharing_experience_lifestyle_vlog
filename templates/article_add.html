@@ -9,6 +9,7 @@
                 <h2>📝 Yangi Maqola Qo'shish</h2>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
+                    {{form.media}}
                     {{ form|crispy }}
                     <button type="submit" class="btn btn-success">Qo'shish</button>
                 </form>
